@@ -53,7 +53,7 @@
 	<script src="{!!URL::asset('js/easypiechart.js')!!}"></script>
 	<script src="{!!URL::asset('js/easypiechart-data.js')!!}"></script>
 	<script src="{!!URL::asset('js/bootstrap-datepicker.js')!!}"></script>
-	<script>
+	<script type="text/javascript">
 		!function ($) {
 			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
 				$(this).find('em:first').toggleClass("glyphicon-minus");	  

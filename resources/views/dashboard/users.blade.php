@@ -61,10 +61,12 @@
         function starsSorter(a, b) {
             return a - b;
         } 
+
         $("#btn-send-email").click(function() {
-            $users = $table.bootstrapTable('getAllSelections');
+            alert("working");
+
+            $users = $table.bootstrapTable('getSelections');
            // console.log($users);
-           alert("working");
             var mails = [];
             for (var i = 0; i < $users.length; i++) {
                mails[i] = $users[i].mail;
