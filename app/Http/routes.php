@@ -15,18 +15,28 @@ use Illuminate\HTML;
 Route::get('/', function () {
 	   return view('dashboard.index');
 });
-Route::get('orders','OrdersListController@index');
+
+Route::get('orders','OrdersListController@design');
+
+Route::get('listOfOrders','OrdersListController@index');
 
 
-Route::get('users',function(){
-	return view('dashboard.users');
-});
-Route::get('hire',function(){
-	return view('dashboard.users');
-});
+Route::get('users','UserListController@design');
+
+Route::get('ListOfusers','UserListController@index');
+
+Route::post('sendmail',function(){
+	return "rayees";
+}); //UserListController@sendmail
+
+Route::get('hire','HireListControllerll@index');
+
+
+// Route::get('hire',function(){
+// 	return view('dashboard.users');
+// });
 
 Route::get('login',function(){
-
 	return view('dashboard.login');
-
 });
+

@@ -8,12 +8,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Exception\ClientException;
 
-class OrdersListController extends Controller
+class UserListController extends Controller
 {
-    
-    private $client;
 
-     public function __construct()
+    private $client;
+    public function __construct()
     {
         $this->client = new Client(['base_uri' => 'http://192.168.0.169:8888/api/','timeout'  => 2.0,]);
     }
@@ -24,20 +23,21 @@ class OrdersListController extends Controller
      */
     public function design()
     {
-        return view('dashboard.orders');
+        return view('dashboard.users');
     }
     public function index()
     {
-               
-       try {
-            $response = $this->client->request('GET', 'getAllOrders');
+        try {
+            $response = $this->client->request('GET', 'getAllUsers');
             $statusCode=$response->getStatusCode();
             $reason=$response->getReasonPhrase(); 
             if($statusCode==200 and $reason=='OK')
             {
-                $orders=json_decode($response->getBody(),true);
-                return $orders;
-                //return view('dashboard.test')->with('orders',$orders);
+                $users=json_decode($response->getBody(),true);
+                //var_dump($users);
+                //return view('dashboard.test')->with('users',$users);
+                return $users;
+                
                
             }
         }catch (ClientException $e) {
@@ -45,8 +45,17 @@ class OrdersListController extends Controller
               echo $e->getResponse();
         }    
     }
-
     /**
+     *  
+     */
+    public function sendmail(Request $request)
+    {
+        var_dump($request);
+        //return view('dashboard.testmail');
+
+    }
+
+    /** 
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

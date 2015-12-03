@@ -1,7 +1,7 @@
 @extends('dashboard.app')
 @section('other_style')
    <link href="{!! URL::asset('assets/css/fresh-bootstrap-table.css') !!}" rel="stylesheet" />
-   <link href="{!! URL::asset('assets/css/bootstrap-table.css') !!}../css/bootstrap-table.css" rel="stylesheet">
+   <link href="{!! URL::asset('css/bootstrap-table.min.css') !!}" rel="stylesheet">
    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 @stop
 
@@ -15,7 +15,7 @@
                      
                         <table id="fresh-table" class="table" data-toggle="table"  
                         data-show-refresh="true" data-show-toggle="true" data-show-columns="true" 
-                        data-url="http://192.168.1.105:8888/api/getAllUsers" data-search="true" 
+                        data-url="ListOfusers" data-search="true" 
                         data-select-item-name="toolbar1" data-pagination="false"  
                         data-sort-name="uid" data-sort-order="asc" 
                         >
@@ -57,14 +57,14 @@
 @stop
 
 @section('other_scripts')
-      <script type="text/javascript">                        
-
+      <script type="text/javascript"> 
         function starsSorter(a, b) {
             return a - b;
         } 
         $("#btn-send-email").click(function() {
-            $users = $table.bootstrapTable('getAllSelections')
+            $users = $table.bootstrapTable('getAllSelections');
            // console.log($users);
+           alert("working");
             var mails = [];
             for (var i = 0; i < $users.length; i++) {
                mails[i] = $users[i].mail;

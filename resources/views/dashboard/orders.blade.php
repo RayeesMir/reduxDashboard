@@ -11,6 +11,7 @@
 					<div class="panel-body">
 						<table data-toggle="table" id="fresh-table" class="table" data-show-refresh="true"
 						 data-show-toggle="true" data-show-columns="true" 
+						 data-url="listOfOrders" 
 						 data-search="true" data-select-item-name="toolbar1" data-pagination="false"  
 						 data-sort-name="timestamp" data-sort-order="desc" 
 						>
@@ -27,8 +28,9 @@
 						    </tr>
 						    </thead>
 						    <tbody>
-						    
-						        
+						    	
+    								
+								
 						    </tbody>					 
 						</table>
 						<script type="text/javascript">
