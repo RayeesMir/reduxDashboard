@@ -13,7 +13,11 @@
                     <div class="panel-heading">Registered Users</div>
                     <div class="panel-body fresh-table full-screen-table">
                      
-                        <table id="fresh-table" class="table" data-toggle="table"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-url="http://192.168.0.169:8888/api/getAllUsers" data-search="true" data-select-item-name="toolbar1" data-pagination="false"  data-sort-name="uid" data-sort-order="asc" 
+                        <table id="fresh-table" class="table" data-toggle="table"  
+                        data-show-refresh="true" data-show-toggle="true" data-show-columns="true" 
+                        data-url="http://192.168.1.105:8888/api/getAllUsers" data-search="true" 
+                        data-select-item-name="toolbar1" data-pagination="false"  
+                        data-sort-name="uid" data-sort-order="asc" 
                         >
                             <thead>
                             <tr>
@@ -28,11 +32,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @for($i=0;$i<74;$i++)
+                              {{--  @for($i=0;$i<74;$i++)
                                     <tr>
                                         <td></td>
                                     </tr>
                                 @endfor 
+                                --}}
                             </tbody>                     
                         </table>
                         <span class="input-group-btn">

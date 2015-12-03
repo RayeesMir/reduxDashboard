@@ -9,7 +9,10 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">All Orders</div>
 					<div class="panel-body">
-						<table data-toggle="table" id="fresh-table" class="table" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-url="http://192.168.0.169:8888/api/getAllOrders" data-search="true" data-select-item-name="toolbar1" data-pagination="false"  data-sort-name="timestamp" data-sort-order="desc" 
+						<table data-toggle="table" id="fresh-table" class="table" data-show-refresh="true"
+						 data-show-toggle="true" data-show-columns="true" 
+						 data-search="true" data-select-item-name="toolbar1" data-pagination="false"  
+						 data-sort-name="timestamp" data-sort-order="desc" 
 						>
 						    <thead>
 						    <tr>
@@ -24,11 +27,7 @@
 						    </tr>
 						    </thead>
 						    <tbody>
-						    	@for($i=0;$i<74;$i++)
-							    	<tr>
-							    		<td></td>
-							    	</tr>
-						        @endfor
+						    
 						        
 						    </tbody>					 
 						</table>

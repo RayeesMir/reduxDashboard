@@ -15,9 +15,9 @@ use Illuminate\HTML;
 Route::get('/', function () {
 	   return view('dashboard.index');
 });
-Route::get('orders',function(){
-	return view('dashboard.orders');
-});
+Route::get('orders','OrdersListController@index');
+
+
 Route::get('users',function(){
 	return view('dashboard.users');
 });
