@@ -35,7 +35,8 @@
                               
                             </tbody>                     
                         </table>
-                        <span class="input-group-btn">
+                        <span class="input-group-btn" >
+                            {{csrf_field()}}
                             <button class="btn btn-primary btn-md" id="btn-send-email">Send Email</button>
                             <button class="btn btn-primary btn-md" id="btn-send-message">Send Message</button>
 
@@ -51,7 +52,7 @@
 
 @stop
 
-/@section('other_scripts')
+@section('other_scripts')
       <script type="text/javascript"> 
         function starsSorter(a, b) {
             return a - b;
@@ -69,7 +70,10 @@
            // console.log(mails);
            $.ajax({
                 type: 'POST',
-                url : 'sendmail',                 
+                url : 'sendmail', 
+                 headers: { 
+                    'X-CSRF-Token': $('input[name="_token"]').val()
+                 },                
                 data : {
                      mail : mails,
                  },

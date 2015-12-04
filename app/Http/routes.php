@@ -24,9 +24,9 @@ Route::get('users','UserListController@design');
 
 Route::get('ListOfusers','UserListController@index');
 
-Route::post('sendmail','UserListController@getSelectedMail');
+Route::post('sendmail','UserListController@getSelectedMail');  
 
-Route::get('selectedMails','UserListController@showSelectedMails') ;
+Route::get('selectedMails','UserListController@showSelectedMails')->name('selectedMails') ;
 
 Route::get('hire','HireListControllerll@index');
 

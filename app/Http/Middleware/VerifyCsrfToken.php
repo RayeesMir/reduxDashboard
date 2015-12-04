@@ -13,17 +13,17 @@ class VerifyCsrfToken extends BaseVerifier
      *
      * @var array
      */
-    protected $except = ['sendmail'];
+    protected $except = [];//'sendmail'
 
-    public function handle($request, Closure $next)
-    {
+  //   public function handle($request, Closure $next)
+  //   {
         
-	    foreach($this->except as $route) {
+	 //    foreach($this->except as $route) {
 
-	      if ($request->is($route)) {
-	        return $next($request);
-	      }
-	 	}
-       return parent::handle($request, $next);
-  }
+	 //      if ($request->is($route)) {
+	 //        return $next($request);
+	 //      }
+	 // 	}
+  //      return parent::handle($request, $next);
+  // }
 }

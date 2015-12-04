@@ -51,7 +51,7 @@ class UserListController extends Controller
         // file_put_contents(storage_path().'/text.txt', $mails, true);
        //file_put_contents(storage_path().'/text.txt',$type , true);
        // return view('dashboard.testmail')->with('mails',$mails);       
-        return view('dashboard.sendmail');
+       // return view('dashboard.sendmail');
     }
     public function showSelectedMails(){
         return $this->selectedMails;
