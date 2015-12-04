@@ -26,6 +26,10 @@ Route::get('ListOfusers','UserListController@index');
 
 Route::post('sendmail','UserListController@getSelectedMail');  
 
+Route::get('sendmail', function() {
+    return view('dashboard.sendmail');
+});
+
 Route::get('selectedMails','UserListController@showSelectedMails')->name('selectedMails') ;
 
 Route::get('hire','HireListControllerll@index');

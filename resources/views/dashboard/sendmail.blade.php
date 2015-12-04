@@ -1,48 +1,59 @@
 @extends('dashboard.app')
 @section('other_style')
-   <link href="{!! URL::asset('assets/css/fresh-bootstrap-table.css') !!}" rel="stylesheet" />
-   <link href="{!! URL::asset('css/bootstrap-table.min.css') !!}" rel="stylesheet">
    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+   <link href="{!! URL::asset('css/style.css') !!}" rel="stylesheet">
+
 @stop
 
 @section('maincontent')
 <div class="row">
             <div class="col-lg-12">
-                <div class="panel panel-default fresh-table">
-                    <div class="panel-heading">Registered Users</div>
-                    <div class="panel-body fresh-table full-screen-table">                     
-                        <table id="fresh-table" class="table" data-toggle="table"  
-                        data-show-refresh="true" data-show-toggle="true" data-show-columns="true" 
-                        data-url="selectedMails" data-search="true" 
-                        data-select-item-name="toolbar1" data-pagination="false"  
-                        data-sort-name="uid" data-sort-order="asc" 
-                        >
-                            <thead>
-                            <tr>
-                                <th data-field="state" data-checkbox="true" >ID</th>
-                                <th data-field="uid" data-sortable="true" data-sorter="starsSorter">ID</th>
-                                <th data-field="name" data-sortable="true">User Name</th>
-                                <th data-field="field_full_name_value" data-sortable="true">Name</th>
-                                <th data-field="status" data-sortable="true">Status</th>
-                                <th data-field="mail"  data-sortable="true">Email ID</th>
-                                <th data-field="field_phone_no_value" data-sortable="true">Phone</th>
-                                <th data-field="actions" data-formatter="operateFormatter" data-events="operateEvents">Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                              
-                            </tbody>                     
-                        </table>
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary btn-md" id="btn-send-email">Send Email</button>
-                            <button class="btn btn-primary btn-md" id="btn-send-message">Send Message</button>
+                <div class="panel panel-default">
+                <div class="panel-heading">Send Emails</div>
+                <div class="panel-body">
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                       <div class="input-group email">
+                                         <label>Subject of the Email</label>
+                                         <textarea class="form-control" rows="3"></textarea>
+                                        </div><!--Subject-->
+                                        <div class="input-group email">
+                                          <label>Body of the Email</label>
+                                          <textarea class="form-control" rows="5"></textarea>
+                                        </div><!--Body-->
+                                    </div>
+                                   
+                                </div>
+                            </div><!--Div for email form-->
 
-                        </span>
-                         <span class="input-group-btn">
-                        </span>
-        
-                    </div>
-                </div>
-            </div>
+                            <div class="col-lg-4">
+                                  <div class="panel panel-default">
+                                  <div class="panel-heading">Email Templates</div>
+                                  <div class="panel-body">
+                                      
+                                  </div><!--Email Panel Body-->
+                                  </div><!--Email Panel -->                        
+                            </div><!--Email Template-->
+                     </div><!--Panel Body-->
+                </div><!--Panel-->
+
+                <div class="panel panel-default">
+                <div class="panel-heading">This is only for testing purpose.</div>
+                <div class="panel-body">
+                    <!--  <ol>
+                         @for ($i = 0; $i < count($mails); $i++)
+                            <li>The current value is {{ $i }}</li>
+                         @endfor
+
+                     </ol> -->
+                     <p id="test"></p>
+                   </div> 
+                </div><!--Test div for checking the email Id's-->
         </div><!--/.row-->  
+@stop
+@section('other_scripts')
+<script type="text/javascript">
+    $('#test').html('{{ $mails or 'Default' }}');
+</script>
 @stop

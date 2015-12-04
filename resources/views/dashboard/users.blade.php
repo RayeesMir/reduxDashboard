@@ -68,7 +68,7 @@
                mails[i] = $users[i].mail;
             }
            // console.log(mails);
-           $.ajax({
+          /* $.ajax({
                 type: 'POST',
                 url : 'sendmail', 
                  headers: { 
@@ -80,7 +80,11 @@
                  success : function(data) {                 
                     alert(data);
                   }
-                });
+                });*/
+         $('<form action="sendmail" method="POST">' + 
+              '<input type="hidden" name="_token" value="{{ csrf_token() }}">'+
+              '<input type="hidden" name="mails" value="' + mails + '">' +
+              '</form>').submit();
         });
         $(function () {
             $('#hover, #striped, #condensed').click(function () {

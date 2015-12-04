@@ -47,12 +47,14 @@ class UserListController extends Controller
      */
     public function getSelectedMail(Request $request)
     {
-       $this->selectedMails = $request->input('mail');
+       $this->selectedMails = $request->input('mails');
         // file_put_contents(storage_path().'/text.txt', $mails, true);
        //file_put_contents(storage_path().'/text.txt',$type , true);
        // return view('dashboard.testmail')->with('mails',$mails);       
-       // return view('dashboard.sendmail');
+        return view('dashboard.sendmail')->with('mails',$this->selectedMails);
+     // return json_decode($selectedMails);
     }
+
     public function showSelectedMails(){
         return $this->selectedMails;
     }
