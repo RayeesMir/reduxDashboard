@@ -27,7 +27,7 @@ Route::get('ListOfusers','UserListController@index');
 
 Route::post('sendmail',function(){
 	return "rayees";
-}); //UserListController@sendmail
+}); 
 
 Route::get('hire','HireListControllerll@index');
 

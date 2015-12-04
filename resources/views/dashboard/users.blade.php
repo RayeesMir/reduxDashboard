@@ -32,12 +32,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                              {{--  @for($i=0;$i<74;$i++)
-                                    <tr>
-                                        <td></td>
-                                    </tr>
-                                @endfor 
-                                --}}
+                              
                             </tbody>                     
                         </table>
                         <span class="input-group-btn">
@@ -66,7 +61,7 @@
             alert("working");
 
             $users = $table.bootstrapTable('getSelections');
-           // console.log($users);
+            console.log($users);
             var mails = [];
             for (var i = 0; i < $users.length; i++) {
                mails[i] = $users[i].mail;
@@ -75,15 +70,14 @@
             console.log(mails);
 
             $.ajax({
-                type: 'post',
+                type: 'POST',
                 url : 'sendmail', 
                 data : {
                      mail : mails
                  },
-
                  success : function(data) {
                   //  console.log(data);
-                    alert("hey");
+                    alert(data);
                     //window.open()
                  }
 
