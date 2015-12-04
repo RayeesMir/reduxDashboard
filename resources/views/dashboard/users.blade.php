@@ -51,7 +51,7 @@
 
 @stop
 
-@section('other_scripts')
+/@section('other_scripts')
       <script type="text/javascript"> 
         function starsSorter(a, b) {
             return a - b;
@@ -66,27 +66,18 @@
             for (var i = 0; i < $users.length; i++) {
                mails[i] = $users[i].mail;
             }
-
-            console.log(mails);
-
-            $.ajax({
+           // console.log(mails);
+           $.ajax({
                 type: 'POST',
-                url : 'sendmail', 
+                url : 'sendmail',                 
                 data : {
-                     mail : mails
+                     mail : mails,
                  },
-                 success : function(data) {
-                  //  console.log(data);
+                 success : function(data) {                 
                     alert(data);
-                    //window.open()
-                 }
-
+                  }
                 });
         });
-         
-
-
-
         $(function () {
             $('#hover, #striped, #condensed').click(function () {
                 var classes = 'table';

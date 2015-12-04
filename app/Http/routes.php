@@ -20,14 +20,13 @@ Route::get('orders','OrdersListController@design');
 
 Route::get('listOfOrders','OrdersListController@index');
 
-
 Route::get('users','UserListController@design');
 
 Route::get('ListOfusers','UserListController@index');
 
-Route::post('sendmail',function(){
-	return "rayees";
-}); 
+Route::post('sendmail','UserListController@getSelectedMail');
+
+Route::get('selectedMails','UserListController@showSelectedMails') ;
 
 Route::get('hire','HireListControllerll@index');
 

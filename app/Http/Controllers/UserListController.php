@@ -12,6 +12,7 @@ class UserListController extends Controller
 {
 
     private $client;
+    protected $selectedMails;
     public function __construct()
     {
         $this->client = new Client(['base_uri' => 'http://192.168.0.169:8888/api/','timeout'  => 2.0,]);
@@ -34,11 +35,7 @@ class UserListController extends Controller
             if($statusCode==200 and $reason=='OK')
             {
                 $users=json_decode($response->getBody(),true);
-                //var_dump($users);
-                //return view('dashboard.test')->with('users',$users);
                 return $users;
-                
-               
             }
         }catch (ClientException $e) {
               echo $e->getRequest();
@@ -48,11 +45,16 @@ class UserListController extends Controller
     /**
      *  
      */
-    public function sendmail(Request $request)
+    public function getSelectedMail(Request $request)
     {
-        var_dump($request);
-        //return view('dashboard.testmail');
-
+       $this->selectedMails = $request->input('mail');
+        // file_put_contents(storage_path().'/text.txt', $mails, true);
+       //file_put_contents(storage_path().'/text.txt',$type , true);
+       // return view('dashboard.testmail')->with('mails',$mails);       
+        return view('dashboard.sendmail');
+    }
+    public function showSelectedMails(){
+        return $this->selectedMails;
     }
 
     /** 
