@@ -36,7 +36,7 @@
                             </tbody>                     
                         </table>
                         <span class="input-group-btn" >
-                            {{csrf_field()}}
+                           <!--  {{csrf_field()}} -->
                             <button class="btn btn-primary btn-md" id="btn-send-email">Send Email</button>
                             <button class="btn btn-primary btn-md" id="btn-send-message">Send Message</button>
 
@@ -60,13 +60,20 @@
 
         $("#btn-send-email").click(function() {
             alert("working");
-
-            $users = $table.bootstrapTable('getSelections');
-            console.log($users);
+            var users = $table.bootstrapTable('getSelections');
+          //  console.log($users);
             var mails = [];
-            for (var i = 0; i < $users.length; i++) {
-               mails[i] = $users[i].mail;
+            //var data="["
+            for (var i = 0; i < users.length; i++) {
+
+               // alert($users[i].name);
+               mails[i] = users[i].mail;
             }
+           // users=JSON.parse( users);
+         
+
+           // console.log(jQuery.type( mails ) );
+           // alert(mails);
            // console.log(mails);
           /* $.ajax({
                 type: 'POST',
@@ -81,9 +88,13 @@
                     alert(data);
                   }
                 });*/
+        users=JSON.stringify(users);
+       // users=JSON.parse(users);
+        console.log(users);
+        alert(users);
          $('<form action="sendmail" method="POST">' + 
               '<input type="hidden" name="_token" value="{{ csrf_token() }}">'+
-              '<input type="hidden" name="mails" value="' + mails + '">' +
+              '<input type="hidden" name="mails" value=' + users + '">' +
               '</form>').submit();
         });
         $(function () {

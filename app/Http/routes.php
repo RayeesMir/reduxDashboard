@@ -10,7 +10,10 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
 use Illuminate\HTML;
+use Illuminate\Http\Request;
+//use Illuminate\Support\Facades\Request;
 
 Route::get('/', function () {
 	   return view('dashboard.index');
@@ -24,13 +27,16 @@ Route::get('users','UserListController@design');
 
 Route::get('ListOfusers','UserListController@index');
 
-Route::post('sendmail','UserListController@getSelectedMail');  
+Route::post('sendmail',function(Request $request){
 
-Route::get('sendmail', function() {
-    return view('dashboard.sendmail');
-});
+	 file_put_contents(storage_path().'/text.txt', $request->input('mails'));
+});  
 
-Route::get('selectedMails','UserListController@showSelectedMails')->name('selectedMails') ;
+// // Route::get('sendmail', function() {
+//     //return view('dashboard.sendmail');
+// });
+
+// Route::get('selectedMails','UserListController@showSelectedMails')->name('selectedMails') ;
 
 Route::get('hire','HireListControllerll@index');
 
