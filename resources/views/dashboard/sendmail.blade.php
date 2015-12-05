@@ -22,6 +22,9 @@
                                           <label>Body of the Email</label>
                                           <textarea class="form-control" rows="5"></textarea>
                                         </div><!--Body-->
+                                        <div class="input-group-btn">
+                                          <button class="btn btn-success btn-md" id="email-send">Send Mail</button>
+                                        </div>
                                     </div>
                                    
                                 </div>
@@ -55,9 +58,12 @@
 @section('other_scripts')
 <script type="text/javascript">
   alert("on send mail page");
-  var users = decodeURIComponent('{{ $mails }}');
-  // var obj = JSON.parse({{ $mails }});
-  console.log(users);
+  var users=decodeURIComponent('{{$mails}}')
     $('#test').html(users);
+
+     $("#email-send").click(function() {
+          alert('Hey');
+          $('<form action=emailStatus method=POST><input type=hidden name=_token value={{ csrf_token() }}></form>').submit();
+        });
 </script>
 @stop
