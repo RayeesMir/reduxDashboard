@@ -27,10 +27,9 @@ Route::get('users','UserListController@design');
 
 Route::get('ListOfusers','UserListController@index');
 
-Route::post('sendmail',function(Request $request){
+Route::post('sendmail','UserListController@getSelectedMail');
 
-	 file_put_contents(storage_path().'/text.txt', $request->input('mails'));
-});  
+	 //file_put_contents(storage_path().'/text.txt', Input::get('mails'));
 
 // // Route::get('sendmail', function() {
 //     //return view('dashboard.sendmail');

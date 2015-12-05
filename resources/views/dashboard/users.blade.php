@@ -59,43 +59,14 @@
         } 
 
         $("#btn-send-email").click(function() {
-            alert("working");
             var users = $table.bootstrapTable('getSelections');
-          //  console.log($users);
-            var mails = [];
-            //var data="["
-            for (var i = 0; i < users.length; i++) {
-
-               // alert($users[i].name);
-               mails[i] = users[i].mail;
-            }
-           // users=JSON.parse( users);
-         
-
-           // console.log(jQuery.type( mails ) );
-           // alert(mails);
-           // console.log(mails);
-          /* $.ajax({
-                type: 'POST',
-                url : 'sendmail', 
-                 headers: { 
-                    'X-CSRF-Token': $('input[name="_token"]').val()
-                 },                
-                data : {
-                     mail : mails,
-                 },
-                 success : function(data) {                 
-                    alert(data);
-                  }
-                });*/
-        users=JSON.stringify(users);
-       // users=JSON.parse(users);
-        console.log(users);
-        alert(users);
-         $('<form action="sendmail" method="POST">' + 
-              '<input type="hidden" name="_token" value="{{ csrf_token() }}">'+
-              '<input type="hidden" name="mails" value=' + users + '">' +
-              '</form>').submit();
+           //  var mails = [];
+           // for (var i = 0; i < users.length; i++) {               
+           //     mails[i] = users[i].mail;
+           //  }
+            users=JSON.stringify(users);
+            users=encodeURIComponent(users);       
+            $('<form action=sendmail method=POST><input type=hidden name=_token value={{ csrf_token() }}><input type=hidden name=mails value=' + users + "\'> </form>'").submit();
         });
         $(function () {
             $('#hover, #striped, #condensed').click(function () {

@@ -55,6 +55,7 @@
 @section('other_scripts')
 <script type="text/javascript">
   alert("on send mail page");
-    $('#test').html('{{ $mails or 'Default' }}');
+  var users=decodeURIComponent('{{$mails}}')
+    $('#test').html(users);
 </script>
 @stop
