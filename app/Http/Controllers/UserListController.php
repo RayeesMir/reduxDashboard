@@ -15,7 +15,7 @@ class UserListController extends Controller
     protected $selectedMails;
     public function __construct()
     {
-        $this->client = new Client(['base_uri' => 'http://192.168.0.169:8888/api/','timeout'  => 5.0,]);
+        $this->client = new Client(['base_uri' => 'http://192.168.1.103:8888/api/','timeout'  => 5.0,]);
     }
     /**
      * Display a listing of the resource.
@@ -33,8 +33,10 @@ class UserListController extends Controller
             $statusCode=$response->getStatusCode();
             $reason=$response->getReasonPhrase(); 
             if($statusCode==200 and $reason=='OK')
-            {
+            {   
+
                 $users=json_decode($response->getBody(),true);
+                
                 return $users;
             }
         }catch (ClientException $e) {

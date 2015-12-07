@@ -18,22 +18,32 @@ class MandrillCaller extends Controller
     {
         try {
         //
-        $mandrill = new Mandrill('pePN8NjutBGaVz-7KDEdSQ');
+        $mandrill = new Mandrill('-SAX5HQ9VJlqNZgHAcktZw');
+         $template_name = 'customer-feedback';
+         $template_content = array(
+         array(
+            'name' => 'example name',
+            'content' => 'example content'
+              )
+        );
         $message = array(
-        'html' => '<p>Example HTML content</p>',
-        'text' => 'Example text content',
-        'subject' => 'example subject',
-        'from_email' => 'rajat.ady@gmail.com',
+        'from_email' => 'cs@reduxpress.in',
         'from_name' => 'Example Name',
         'to' => array(
             array(
                 'email' => 'rajat@reduxpress.in',
                 'name' => 'Recipient Name',
                 'type' => 'to'
+            ),
+            array(
+                'email' => 'rajat.ady@gmail.com',
+                'name' => 'Recipient Name',
+                'type' => 'to'
             )
+
         ),
         'headers' => array('Reply-To' => 'rajat.ady@gmail.com'),
-        'important' => false,
+        'important' => true,
         'track_opens' => null,
         'track_clicks' => null,
         'auto_text' => null,
@@ -47,54 +57,54 @@ class MandrillCaller extends Controller
         'signing_domain' => null,
         'return_path_domain' => null,
         'merge' => true,
-        'merge_language' => 'mailchimp',
-        'global_merge_vars' => array(
-            array(
-                'name' => 'merge1',
-                'content' => 'merge1 content'
-            )
-        ),
-        'merge_vars' => array(
-            array(
-                'rcpt' => 'recipient.email@example.com',
-                'vars' => array(
-                    array(
-                        'name' => 'merge2',
-                        'content' => 'merge2 content'
-                    )
-                )
-            )
-        ),
-        'tags' => array('password-resets'),
-        'subaccount' => 'customer-123',
-        'google_analytics_domains' => array('example.com'),
-        'google_analytics_campaign' => 'message.from_email@example.com',
-        'metadata' => array('website' => 'www.example.com'),
-        'recipient_metadata' => array(
-            array(
-                'rcpt' => 'recipient.email@example.com',
-                'values' => array('user_id' => 123456)
-            )
-        ),
-        'attachments' => array(
-            array(
-                'type' => 'text/plain',
-                'name' => 'myfile.txt',
-                'content' => 'ZXhhbXBsZSBmaWxl'
-            )
-        ),
-        'images' => array(
-            array(
-                'type' => 'image/png',
-                'name' => 'IMAGECID',
-                'content' => 'ZXhhbXBsZSBmaWxl'
-            )
-        )
+        'merge_language' => 'mailchimp'
+        // 'global_merge_vars' => array(
+        //     array(
+        //         'name' => 'merge1',
+        //         'content' => 'merge1 content'
+        //     )
+        // ),
+        // 'merge_vars' => array(
+        //     array(
+        //         'rcpt' => 'recipient.email@example.com',
+        //         'vars' => array(
+        //             array(
+        //                 'name' => 'merge2',
+        //                 'content' => 'merge2 content'
+        //             )
+        //         )
+        //     )
+        // ),
+        // 'tags' => array('password-resets'),
+        // 'subaccount' => 'customer-123',
+        // 'google_analytics_domains' => array('example.com'),
+        // 'google_analytics_campaign' => 'message.from_email@example.com',
+        // 'metadata' => array('website' => 'www.example.com'),
+        // 'recipient_metadata' => array(
+        //     array(
+        //         'rcpt' => 'recipient.email@example.com',
+        //         'values' => array('user_id' => 123456)
+        //     )
+        // ),
+        // 'attachments' => array(
+        //     array(
+        //         'type' => 'text/plain',
+        //         'name' => 'myfile.txt',
+        //         'content' => 'ZXhhbXBsZSBmaWxl'
+        //     )
+        // ),
+        // 'images' => array(
+        //     array(
+        //         'type' => 'image/png',
+        //         'name' => 'IMAGECID',
+        //         'content' => 'ZXhhbXBsZSBmaWxl'
+        //     )
+        // )
     );
     $async = false;
     $ip_pool = 'Main Pool';
     
-    $result = $mandrill->messages->send($message, $async, $ip_pool);
+     $result = $mandrill->messages->sendTemplate($template_name, $template_content, $message, $async, $ip_pool);
     print_r($result);
     /*
     Array

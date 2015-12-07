@@ -16,8 +16,10 @@
                         <table id="fresh-table" class="table" data-toggle="table"  
                         data-show-refresh="true" data-show-toggle="true" data-show-columns="true" 
                         data-url="ListOfusers" data-search="true" 
-                        data-select-item-name="toolbar1" data-pagination="false"  
-                        data-sort-name="uid" data-sort-order="asc" 
+                        data-select-item-name="toolbar1" data-pagination="true"  
+                        data-sort-name="uid" data-sort-order="desc" 
+                        data-page-list="[10, 25, 50, 100]" page-size= 50  data-detail-view="true"
+                        data-detail-formatter="detailFormatter"                    
                         >
                             <thead>
                             <tr>
@@ -120,7 +122,7 @@
                 sortable: true,
                 height: table_height,
                 pageSize: 25,
-                pageList: [25,50,100],
+                
                 
                 formatShowingRows: function(pageFrom, pageTo, totalRows){
                     //do nothing here, we don't want to show the text "showing x of y from..." 
@@ -169,13 +171,22 @@
             return [
                
                 '<a rel="tooltip" title="Edit" class="table-action edit" href="javascript:void(0)" title="Edit">',
-                    '<i class="fa fa-edit"></i>',
+                    '<i class="fa fa-eye"></i>',
                 '</a>',
                 '<a rel="tooltip" title="Remove" class="table-action remove" href="javascript:void(0)" title="Remove">',
                     '<i class="fa fa-remove"></i>',
                 '</a>'
             ].join('');
         }
+
+        function detailFormatter(index, row) {
+        var html = [];
+        $.each(row, function (key, value) {
+            html.push('<p><b>' + key + ':</b> ' + value + '</p>');
+        });
+        return html.join('');
+    }
+
 
       
        
