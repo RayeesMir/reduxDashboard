@@ -29,7 +29,12 @@ Route::get('ListOfusers','UserListController@index');
 
 Route::post('sendmail','UserListController@getSelectedMail');
 
+Route::post('sendmessage','UserListController@getSelectedNumbers');
+
 Route::post('emailStatus','MandrillCaller@index');
+
+Route::post('messagestatus','SMSApiCaller@index');
+
 
 
 	 //file_put_contents(storage_path().'/text.txt', Input::get('mails'));

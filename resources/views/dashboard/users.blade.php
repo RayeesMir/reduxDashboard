@@ -70,6 +70,19 @@
             users=encodeURIComponent(users);       
             $('<form action=sendmail method=POST><input type=hidden name=_token value={{ csrf_token() }}><input type=hidden name=mails value=' + users + "\'> </form>'").submit();
         });
+
+
+        $("#btn-send-message").click(function() {
+            var users = $table.bootstrapTable('getSelections');
+           //  var mails = [];
+           // for (var i = 0; i < users.length; i++) {               
+           //     mails[i] = users[i].mail;
+           //  }
+            users=JSON.stringify(users);
+            users=encodeURIComponent(users);       
+            $('<form action=sendmessage method=POST><input type=hidden name=_token value={{ csrf_token() }}><input type=hidden name=mails value=' + users + "\'> </form>'").submit();
+        });
+
         $(function () {
             $('#hover, #striped, #condensed').click(function () {
                 var classes = 'table';

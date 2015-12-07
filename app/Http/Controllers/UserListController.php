@@ -49,13 +49,25 @@ class UserListController extends Controller
      */
     public function getSelectedMail(Request $request)
     {
-       
-       $selectedMails = $request->input('mails');
+     
+         $selectedMails = $request->input('mails');
         // file_put_contents(storage_path().'/text.txt', $selectedMails);
        //file_put_contents(storage_path().'/text.txt',$type , true);
        // return view('dashboard.testmail')->with('mails',$mails);       
         return view('dashboard.sendmail')->with('mails',$selectedMails);
      // return json_decode($selectedMails);
+    }
+
+    public function getSelectedNumbers(Request $request)
+    {
+         
+       $selectedMobileNumbers = $request->input('mails');
+        // file_put_contents(storage_path().'/text.txt', $selectedMails);
+       //file_put_contents(storage_path().'/text.txt',$type , true);
+       // return view('dashboard.testmail')->with('mails',$mails);       
+        return view('dashboard.sendmessage')->with('mobile',$selectedMobileNumbers);
+     // return json_decode($selectedMails);
+      
     }
 
     public function showSelectedMails(){
