@@ -6,43 +6,41 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Mandrill;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 class MandrillCaller extends Controller
 {
+    private $client;
+    public function __construct()
+    {
+        $client=null;
+        $this->client = new Client(['base_uri' => 'http://192.168.0.169:8888//api/','timeout'  => 5.0,]);
+       
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $selectedUsers=$request->input('mails');
+        $selectedUsers=json_decode(substr(urldecode($selectedUsers),0,-7));    
         try {
-        //
         $mandrill = new Mandrill('-SAX5HQ9VJlqNZgHAcktZw');
-         $template_name = 'customer-feedback';
-         $template_content = array(
-         array(
+        $template_name = 'order-summary';
+        $template_content = array(
+        array(
             'name' => 'example name',
             'content' => 'example content'
               )
         );
         $message = array(
         'from_email' => 'cs@reduxpress.in',
-        'from_name' => 'Example Name',
-        'to' => array(
-            array(
-                'email' => 'rajat@reduxpress.in',
-                'name' => 'Recipient Name',
-                'type' => 'to'
-            ),
-            array(
-                'email' => 'rajat.ady@gmail.com',
-                'name' => 'Recipient Name',
-                'type' => 'to'
-            )
-
-        ),
-        'headers' => array('Reply-To' => 'rajat.ady@gmail.com'),
+        'from_name' => 'Rayees ',
+        'to' => array(),
+        'headers' => array('Reply-To' => 'mirrayees@reduxpress.in'),
         'important' => true,
         'track_opens' => null,
         'track_clicks' => null,
@@ -101,11 +99,17 @@ class MandrillCaller extends Controller
         //     )
         // )
     );
+    foreach ($selectedUsers as $users) {
+            $message['to'][] = array(
+                'email' => $users->mail,
+                'name' => $users->name,
+                'type' => 'to'
+                );
+         }
     $async = false;
     $ip_pool = 'Main Pool';
-    
-     $result = $mandrill->messages->sendTemplate($template_name, $template_content, $message, $async, $ip_pool);
-    print_r($result);
+    $result = $mandrill->messages->sendTemplate($template_name, $template_content, $message, $async, $ip_pool);
+    dd($result);
     /*
     Array
     (

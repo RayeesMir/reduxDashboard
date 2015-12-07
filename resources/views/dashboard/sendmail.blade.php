@@ -44,6 +44,7 @@
                 <div class="panel panel-default">
                 <div class="panel-heading">This is only for testing purpose.</div>
                 <div class="panel-body">
+
                     <!--  <ol>
                          @for ($i = 0; $i < count($mails); $i++)
                             <li>The current value is {{ $i }}</li>
@@ -51,6 +52,7 @@
 
                      </ol> -->
                      <p id="test"></p>
+
                    </div> 
                 </div><!--Test div for checking the email Id's-->
         </div><!--/.row-->  
@@ -59,11 +61,14 @@
 <script type="text/javascript">
   alert("on send mail page");
   var users=decodeURIComponent('{{$mails}}')
+  
     $('#test').html(users);
 
      $("#email-send").click(function() {
           alert('Hey');
-          $('<form action=emailStatus method=POST><input type=hidden name=_token value={{ csrf_token() }}></form>').submit();
+            $('<form action=emailStatus method=POST><input type=hidden name=_token value={{ csrf_token() }}><input type=hidden name=mails value=' + encodeURIComponent(users) + "\'> </form>'").submit();
+
+          
         });
 </script>
 @stop

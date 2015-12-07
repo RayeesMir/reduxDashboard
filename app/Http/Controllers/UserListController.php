@@ -15,7 +15,10 @@ class UserListController extends Controller
     protected $selectedMails;
     public function __construct()
     {
-        $this->client = new Client(['base_uri' => 'http://192.168.1.103:8888/api/','timeout'  => 5.0,]);
+        $client=null;
+         $selectedMails=null;
+        $this->client = new Client(['base_uri' => 'http://192.168.0.169:8888/api/','timeout'  => 5.0,]);
+       
     }
     /**
      * Display a listing of the resource.
@@ -65,7 +68,7 @@ class UserListController extends Controller
         // file_put_contents(storage_path().'/text.txt', $selectedMails);
        //file_put_contents(storage_path().'/text.txt',$type , true);
        // return view('dashboard.testmail')->with('mails',$mails);       
-        return view('dashboard.sendmessage')->with('mobile',$selectedMobileNumbers);
+       // return view('dashboard.sendmessage')->with('mobile',$selectedMobileNumbers);
      // return json_decode($selectedMails);
       
     }
