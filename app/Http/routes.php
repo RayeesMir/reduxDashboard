@@ -23,7 +23,7 @@ Route::get('orders','OrdersListController@design');
 
 Route::get('listOfOrders','OrdersListController@index');
 
-Route::get('users','UserListController@design');
+Route::get('users','UserListController@design')->name('users');
 
 Route::get('ListOfusers','UserListController@index');
 

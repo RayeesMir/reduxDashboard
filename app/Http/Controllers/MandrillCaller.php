@@ -108,8 +108,20 @@ class MandrillCaller extends Controller
          }
     $async = false;
     $ip_pool = 'Main Pool';
-    $result = $mandrill->messages->sendTemplate($template_name, $template_content, $message, $async, $ip_pool);
-    dd($result);
+
+    //$result = $mandrill->messages->sendTemplate($template_name, $template_content, $message, $async, $ip_pool);
+    //dd($result);
+
+    // $response = $this->client->request('GET', 'getAllUsers');
+    //         $statusCode=$response->getStatusCode();
+    //         $reason=$response->getReasonPhrase(); 
+    //         if($statusCode==200 and $reason=='OK')
+    //         {   
+
+    //             $users=json_decode($response->getBody(),true);
+                
+    //             return $users;
+    //         }
     /*
     Array
     (
@@ -129,7 +141,7 @@ class MandrillCaller extends Controller
     // A mandrill error occurred: Mandrill_Unknown_Subaccount - No subaccount exists with the id 'customer-123'
     throw $e;
 }
-
+return redirect('users');
     }
 
     /**
