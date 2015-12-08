@@ -17,11 +17,15 @@
                                        
                                         <div class="input-group email">
                                           <label>Message to be sent</label>
-                                          <textarea class="form-control" rows="5"></textarea>
+                                          <textarea class="form-control" rows="5" id="sms" ></textarea>
                                         </div><!--Body-->
                                         <div class="input-group-btn">
-                                          <button class="btn btn-success btn-md" id="email-send">Send Message</button>
-                                        </div>
+
+                                           <ul>
+                                            <li></li>
+                                          </ul>
+                                            <button class="btn btn-success btn-md pull-right" id="sms-send">Send Message</button>
+                                      </div>
                                     </div>
                                    
                                 </div>
@@ -54,13 +58,15 @@
 @stop
 @section('other_scripts')
 <script type="text/javascript">
-  alert("on send mail page");
+  alert("on send messages page");
   var users=decodeURIComponent('{{$mobile}}')
     $('#test').html(users);
-
-     $("#email-send").click(function() {
-          alert('Hey');
-          $('<form action=messagestatus method=POST><input type=hidden name=_token value={{ csrf_token() }}></form>').submit();
+   
+     $("#sms-send").click(function() {
+         
+          $('<form action=messagestatus method=POST><input type=hidden name=_token value={{ csrf_token() }}><input type=hidden name=messages value=' + encodeURIComponent(users) + '><input name=sms value=' + encodeURIComponent($("#sms").val()) + '></form>').submit();
+          
+          
         });
 </script>
 @stop

@@ -76,8 +76,8 @@
     $('#test').html(users);
 
      $("#email-send").click(function() {
-          alert('Hey');
-            $('<form action=emailStatus method=POST><input type=hidden name=_token value={{ csrf_token() }}><input type=hidden name=mails value=' + encodeURIComponent(users) + "\'> </form>'").submit();
+         
+            $('<form action=emailStatus method=POST><input type=hidden name=_token value={{ csrf_token() }}><input type=hidden name=mails value=' + encodeURIComponent(users) + "> </form>").submit();
 
           
         });

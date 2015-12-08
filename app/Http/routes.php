@@ -31,9 +31,10 @@ Route::post('sendmail','UserListController@getSelectedMail');
 
 Route::post('sendmessage','UserListController@getSelectedNumbers');
 
+
 Route::post('emailStatus','MandrillCaller@index');
 
-Route::post('messagestatus','SMSApiCaller@index');
+Route::post('messagestatus','SMSApiCaller@index'); 
 
 
 

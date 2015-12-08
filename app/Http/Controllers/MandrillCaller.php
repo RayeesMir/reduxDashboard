@@ -15,7 +15,7 @@ class MandrillCaller extends Controller
     public function __construct()
     {
         $client=null;
-        $this->client = new Client(['base_uri' => 'http://192.168.0.169:8888//api/','timeout'  => 5.0,]);
+        $this->client = new Client(['base_uri' => 'http://192.168.0.170:8888//api/','timeout'  => 5.0,]);
        
     }
     /**
@@ -23,39 +23,74 @@ class MandrillCaller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function generateOrderContent()
+    {
+        $rows="";
+        $content= "<tr>
+                        <td>Item Description</td>
+                        <td>Quantity</td>
+                        <td>Price</td>
+                   </tr>";                
+                        for($i=0;$i<10;$i++)
+                        {
+                            $rows=$rows."<tr><td>Item Description</td><td>Item Quantity</td><td>Item Price</td></tr>";
+                        }   
+                $content=$content.$rows;
+    return $content;
+    }
+
+
     public function index(Request $request)
     {
         $selectedUsers=$request->input('mails');
-        $selectedUsers=json_decode(substr(urldecode($selectedUsers),0,-7));    
+        $selectedUsers=json_decode(substr(urldecode($selectedUsers),0,-6));    
         try {
         $mandrill = new Mandrill('-SAX5HQ9VJlqNZgHAcktZw');
-        $template_name = 'order-summary';
+        $template_name = 'order-summary';        
         $template_content = array(
-        array(
-            'name' => 'example name',
-            'content' => 'example content'
-              )
-        );
+
+                                    array(
+                                        'name' => 'customer-name',
+                                        'content' => 'Rayees'
+                                    ),
+                                    array(
+                                        'name'=>'grand-total',
+                                        'content'=>'10000000000'
+                                        ),
+                                    // // array(
+                                    // //     'name'=>'order-detail',
+                                    // //     'content'=>str_replace("\n","",$this->generateOrderContent());
+                                    // //     ),
+                                    array(
+                                        'name'=>'customer-address',
+                                        'content'=>'Bangalore'
+                                        )
+                                    // array(
+                                    //     'name'=>'customer-mobilenumber',
+                                    //     'content'=>'7411220923'
+                                    //     )
+                                );     
         $message = array(
-        'from_email' => 'cs@reduxpress.in',
-        'from_name' => 'Rayees ',
-        'to' => array(),
-        'headers' => array('Reply-To' => 'mirrayees@reduxpress.in'),
-        'important' => true,
-        'track_opens' => null,
-        'track_clicks' => null,
-        'auto_text' => null,
-        'auto_html' => null,
-        'inline_css' => null,
-        'url_strip_qs' => null,
-        'preserve_recipients' => null,
-        'view_content_link' => null,
-        'bcc_address' => 'message.bcc_address@example.com',
-        'tracking_domain' => null,
-        'signing_domain' => null,
-        'return_path_domain' => null,
-        'merge' => true,
-        'merge_language' => 'mailchimp'
+                            'from_email' => 'cs@reduxpress.in',
+                            'from_name' => 'Rayees ',
+                            'to' => array(),
+                            'headers' => array('Reply-To' => 'mirrayees@reduxpress.in'),
+                            'important' => true,
+                            'track_opens' => null,
+                            'track_clicks' => null,
+                            'auto_text' => null,
+                            'auto_html' => null,
+                            'inline_css' => null,
+                            'url_strip_qs' => null,
+                            'preserve_recipients' => null,
+                            'view_content_link' => null,
+                            'bcc_address' => 'message.bcc_address@example.com',
+                            'tracking_domain' => null,
+                            'signing_domain' => null,
+                            'return_path_domain' => null,
+                            'merge' => true,
+                            'merge_language' => 'mailchimp'
         // 'global_merge_vars' => array(
         //     array(
         //         'name' => 'merge1',
@@ -99,19 +134,33 @@ class MandrillCaller extends Controller
         //     )
         // )
     );
+            // $template_content[]=array(
+            //                             'name' => 'customer-name',
+            //                             // 'content' => include('orderContent.php')
+            //                         );
     foreach ($selectedUsers as $users) {
             $message['to'][] = array(
                 'email' => $users->mail,
                 'name' => $users->name,
                 'type' => 'to'
                 );
+            
          }
-    $async = false;
-    $ip_pool = 'Main Pool';
-
+        
+        $async = false;
+        $ip_pool = 'Main Pool';
+        
+        
+        //$template_content[0]['content']='<div><h1>My NAme Is rayees </h1></div>';
+       // dd($template_content);
+    
+    // $template_content['content']=$con;
     //$result = $mandrill->messages->sendTemplate($template_name, $template_content, $message, $async, $ip_pool);
-    //dd($result);
-
+   // dd($result);
+    //var_dump($this->generateOrderContent());
+    //dd( $this->generateOrderContent());
+     
+     
     // $response = $this->client->request('GET', 'getAllUsers');
     //         $statusCode=$response->getStatusCode();
     //         $reason=$response->getReasonPhrase(); 
@@ -141,7 +190,7 @@ class MandrillCaller extends Controller
     // A mandrill error occurred: Mandrill_Unknown_Subaccount - No subaccount exists with the id 'customer-123'
     throw $e;
 }
-return redirect('users');
+//return redirect('users');
     }
 
     /**
