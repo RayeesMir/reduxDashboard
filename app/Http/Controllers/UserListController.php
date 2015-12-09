@@ -17,10 +17,10 @@ class UserListController extends Controller
     {
         $client=null;
          $selectedMails=null;
-        $this->client = new Client(['base_uri' => 'http://192.168.0.170:8888/api/','timeout'  => 5.0,]);
+        $this->client = new Client(['base_uri' => 'http://192.168.1.101:8888/api/','timeout'  => 5.0,]);
        
     }
-    /**
+    /**m
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -42,7 +42,7 @@ class UserListController extends Controller
                 
                 return $users;
             }
-        }catch (ClientException $e) {
+        } catch (ClientException $e) {
               echo $e->getRequest();
               echo $e->getResponse();
         }    

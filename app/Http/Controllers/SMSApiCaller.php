@@ -15,7 +15,7 @@ class SMSApiCaller extends Controller
      public function __construct()
     {
         $client=null;        
-        $this->client = new Client(['base_uri' => 'http://bhashsms.com/api/sendmsg.php?user=reduxpress&pass=redux123&sender=RDXPRS&phone=','timeout'  => 5.0,]);
+        $this->client = new Client(['base_uri' => 'http://bhashsms.com/api/sendmsg.php?user=reduxpress&pass=redux123&sender=RDXPRS&phone=8147851623','timeout'  => 5.0,]);
        
     }
     /**
@@ -27,18 +27,18 @@ class SMSApiCaller extends Controller
          
     public function index(Request $request)
     {   
-        $url="";
+        $url='http://bhashsms.com/api/sendmsg.php?user=reduxpress&pass=redux123&sender=RDXPRS&phone=8147851623';
         try {
             foreach (json_decode(substr(urldecode($request->input('messages')),0,-6)) as $user) {
-                $url=$url.$user->field_phone_no_value.",";
+               // $url=$url.$user->field_phone_no_value;
             }
             $url=$url."&text=".urldecode($request->input('sms'));
             $url=$url."&priority=ndnd&stype=normal";
 
-
+            dd($url);
 
             //$response = $this->client->request('GET', $url);
-            dd($response);
+            // dd($response);
             // $statusCode=$response->getStatusCode();
             // $reason=$response->getReasonPhrase(); 
             // if($statusCode==200 and $reason=='OK')
