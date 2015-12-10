@@ -1,11 +1,16 @@
 @extends('dashboard.app')
 @section('other_style')
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="{!! URL::asset('css/style.css') !!}" rel="stylesheet">
+
+<link href="{!! URL::asset('css/styles.css') !!}" rel="stylesheet">
+<link href="{!! URL::asset('css/sweetalert.css') !!}" rel="stylesheet">
+<script src="{!! URL::asset('js/sweetalert.min.js') !!}"></script> 
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
 @stop
 
 @section('maincontent')
+
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
@@ -69,12 +74,13 @@
                 <div class="col-lg-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">Message Templates</div>
-                        <div class="templates panel-body">
+                        
+                        <div class="templates panel-body" id="smsTemplatePanel">
                             <ul>
                                 <li style="display: block;">
                                     <div class="panel panel-blue">
                                         <div class="panel-body">
-                                            <p>Photo Prints 1</p>
+                                           
                                         </div>
                                     </div>
                                 </li>
@@ -106,10 +112,35 @@
                     <!--Email Panel -->
                 </div>
                 <!--Email Template-->
+                <button class="btn btn-default btn-success pull-right" id="createTemplate" data-toggle="modal" data-target="#smsTemplateModal"> Create SMS Template </button>
             </div>
             <!--Panel Body-->
+
         </div>
         <!--Panel-->
+        <!-- Create SMS Template Modal -->
+                <div class="modal fade" id="smsTemplateModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                               <!-- <button type="button" class="close" data-dismiss="modal" aria-label="close=></button> -->
+                                <h3 class="modal-title">Create SMS Template </h3>
+                            </div>
+                            <div class="modal-body">
+                                <textarea class="form-control" id="smsTemplateText" >
+                                    
+                                </textarea>
+
+                            </div>
+                            <div class="modal-footer">
+                              
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"> Close </button>
+                                <button type="button" class="btn btn-primary" id="saveSmsTemplate"> Save Template </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <!-- Create SMS Template Modal -->
 
         <div class="panel panel-default">
             <div class="panel-heading">This is only for testing purpose.</div>
@@ -130,7 +161,7 @@
 @stop
 @section('other_scripts')
 <script type="text/javascript">
-    // alert("on send messages page");
+     
     var users = decodeURIComponent('{{$mobile}}')
     var text = $('#sms');
     $('#test').html(users);
@@ -139,6 +170,31 @@
 
         $('<form action=messagestatus method=POST><input type=hidden name=_token value={{ csrf_token() }}><input type=hidden name=messages value=' + encodeURIComponent(users) + '><input name=sms value=' + encodeURIComponent($("#sms").val()) + '></form>').submit();
 
+    });
+    $("#saveSmsTemplate").click(function(){
+
+       var smsTemplateText=$.trim($("#smsTemplateText").val());
+   
+       $.ajax({
+                url: "createSmstemplate",
+                data:{'smstemplate':smsTemplateText},
+                success: function(result)
+                        {
+                            result=JSON.stringify(result);
+                            e=result.smstemplate;
+                            
+                            console.log(result);
+                            // alert(e);
+                            // result=;
+                            // console.log(JSON.parse(result['smstemplate'][0]));
+                       // console.log(result['smstemplate']['smstemplate']);
+                            
+                          // var html="<li style=display:block; href=#><div class=panel panel-teal><div class=panel-body><p>Photo Prints 4</p></div></div></li>" 
+                         // $("#smsTemplatePanel").append(html);
+                        }
+             }); 
+      
+        // swal({   title: "Error!",   text: smsTemplateText=$.trim($("#smsTemplateText").val()),   type: "error",   confirmButtonText: "Cool" });
     });
 
     $('#first-name').click(function () {

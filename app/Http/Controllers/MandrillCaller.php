@@ -15,7 +15,7 @@ class MandrillCaller extends Controller
     public function __construct()
     {
         $client=null;
-        $this->client = new Client(['base_uri' => 'http://192.168.0.170:8888//api/','timeout'  => 5.0,]);
+        $this->client = new Client(['base_uri' => 'http://192.168.1.6:8888//api/','timeout'  => 5.0,]);
        
     }
     /**
@@ -27,17 +27,13 @@ class MandrillCaller extends Controller
     public function generateOrderContent()
     {
         $rows="";
-        $content= "<tr>
-                        <td>Item Description</td>
-                        <td>Quantity</td>
-                        <td>Price</td>
-                   </tr>";                
+        $content= "<tr><td>Item Description</td><td>Quantity</td><td>Price</td></tr>";                
                         for($i=0;$i<10;$i++)
                         {
                             $rows=$rows."<tr><td>Item Description</td><td>Item Quantity</td><td>Item Price</td></tr>";
                         }   
                 $content=$content.$rows;
-    return $content;
+         return $content;
     }
 
 
@@ -56,12 +52,12 @@ class MandrillCaller extends Controller
                                     ),
                                     array(
                                         'name'=>'grand-total',
-                                        'content'=>'10000000000'
+                                        'content'=> 13450
                                         ),
-                                    // // array(
-                                    // //     'name'=>'order-detail',
-                                    // //     'content'=>str_replace("\n","",$this->generateOrderContent());
-                                    // //     ),
+                                    array(
+                                        'name'=>'order-detail',
+                                        'content'=>$this->generateOrderContent()
+                                        ),
                                     array(
                                         'name'=>'customer-address',
                                         'content'=>'Bangalore'
@@ -155,8 +151,8 @@ class MandrillCaller extends Controller
        // dd($template_content);
     
     // $template_content['content']=$con;
-    //$result = $mandrill->messages->sendTemplate($template_name, $template_content, $message, $async, $ip_pool);
-   // dd($result);
+    $result = $mandrill->messages->sendTemplate($template_name, $template_content, $message, $async, $ip_pool);
+    dd($result);
     //var_dump($this->generateOrderContent());
     //dd( $this->generateOrderContent());
      

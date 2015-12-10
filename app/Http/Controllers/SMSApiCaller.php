@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use DB;
+use Carbon\Carbon;
+use Validator;
 use GuzzleHttp\Exception\ClientException;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use GuzzleHttp\RequestOptions;
+use GuzzleHttp\Middleware;
+use Guzzle\Plugin\History\HistoryPlugin;
+
 
 class SMSApiCaller extends Controller
 {
@@ -15,7 +22,7 @@ class SMSApiCaller extends Controller
      public function __construct()
     {
         $client=null;        
-        $this->client = new Client(['base_uri' => 'http://bhashsms.com/api/sendmsg.php?user=reduxpress&pass=redux123&sender=RDXPRS&phone=8147851623','timeout'  => 5.0,]);
+        $this->client = new Client(['base_uri' => 'http://bhashsms.com/','timeout'  => 5.0,]);
        
     }
     /**
@@ -27,57 +34,72 @@ class SMSApiCaller extends Controller
          
     public function index(Request $request)
     {   
-        $url='http://bhashsms.com/api/sendmsg.php?user=reduxpress&pass=redux123&sender=RDXPRS&phone=8147851623';
-        try {
-            foreach (json_decode(substr(urldecode($request->input('messages')),0,-6)) as $user) {
-               // $url=$url.$user->field_phone_no_value;
+        $firstName = '{% First Name %}';
+        $lastName = '{% Last Name %}';
+        $emailID = '{% Email ID %}';
+        $mobileNumber = '{% Mobile Number %}';
+        $sms = urldecode($request->input('sms'));
+        $url="";
+        foreach (json_decode(substr(urldecode($request->input('messages')),0,-6)) as $user) 
+        {
+           $smsText=$sms;
+           if( strpos($sms,$firstName) != false || strpos($sms,$lastName) != false || strpos($sms,$emailID) != false || strpos($sms,$mobileNumber) != false)
+            {          
+                $smsText=str_replace($firstName,array_key_exists(0,explode(" ",$user->field_full_name_value))?explode(" ",$user->field_full_name_value)[0]:" ",$smsText);
+                $smsText=str_replace($lastName,array_key_exists(1,explode(" ",$user->field_full_name_value))?explode(" ",$user->field_full_name_value)[1]:" ",$smsText);
+                $smsText=str_replace($emailID,$user->mail,$smsText);
+                $smsText=str_replace($mobileNumber,$user->field_phone_no_value,$smsText);               
             }
-            $url=$url."&text=".urldecode($request->input('sms'));
-            $url=$url."&priority=ndnd&stype=normal";
-
-            dd($url);
-
-            //$response = $this->client->request('GET', $url);
-            // dd($response);
-            // $statusCode=$response->getStatusCode();
-            // $reason=$response->getReasonPhrase(); 
-            // if($statusCode==200 and $reason=='OK')
-            // {   
-
-            //     $users=json_decode($response->getBody(),true);
-                
-            //     return $users;
-            // }
-        }catch (ClientException $e) {
-              //echo $e->getRequest();
-             // echo $e->getResponse();
-        }    
+          $url="/api/sendmsg.php?user=reduxpress&pass=redux123&sender=RDXPRS&phone=7411220923&text=".$smsText."&priority=ndnd&stype=normal";
+          $response=$this->client->request('GET',$url);
+          $bhashResponse=substr($response->getBody()->getContents(),0,-4);
+          $msgStatus=explode(".",$bhashResponse)[0];
+          $msgResponseId=explode(".",$bhashResponse)[1];
+     
 
 
-
-
-
-
-
-
-
-        // $url="http://bhashsms.com/api/sendmsg.php?user=reduxpress&pass=redux123&sender=RDXPRS&phone=";
-       
-        //dd(json_decode(substr(urldecode($request->input('messages')),0,-6)));
+            // $response= $this->client->request('GET','/api/sendmsg.php',['query'=>[
+// ". $user->field_phone_no_value ."
+            //                                                                         ['user'=>'reduxpress'],
+            //                                                                         ['pass'=>'redux123'],
+            //                                                                         ['sender'=>'RDXPRS'],
+            //                                                                         ['phone'=> 7411220923],//$user->field_phone_no_value
+            //                                                                         ['text'=>'Test Message'], //$smsText
+            //                                                                         ['priority'=>'ndnd'],
+            //                                                                         ['stype'=>'normal']
+            //                                                                     ]]);           
+        } 
         
-     //   dd($url);
+    }
 
-        //dd($mobileNumbers);
-        // $selectedUsers=$request->input('messages');
-        // $selectedUsers=json_decode(substr(urldecode($selectedUsers),0,-6)); 
-        // $messageToSend=urldecode($request->input('sms')));
-       // reduxpress
-       // redux123
-       // RDXPRS
-        // $result=        
-        // Make a call to bhashsms in the following format.
-        //http://bhashsms.com/api/sendmsg.php?user=reduxpress&pass=********&sender=Sender ID&phone=MobileNo1,MobileNo2..&text=Test SMS&priority=Priority&stype=smstype
-
+    /**
+     *  Stores SMS Template In Database
+     */
+    public function storeSmsTemplate(Request $request)
+    {
+        $validator=Validator::make( $request->all(),
+                                    ['smstemplate'=>'required|min:5']
+                                   
+                                );    
+         
+        if($validator->fails())
+        {
+            $errMessages=$validator->messages();
+            return $errMessages;
+        }
+        else
+        {
+           $id= DB::table('smstemplate')->insertGetId(
+                [   
+                    'message'=>$request->input('smstemplate'),
+                    'created_at'=>Carbon::now(),
+                    'updated_at'=>Carbon::now()
+                ]
+            );
+           $templateData=DB::table('smstemplate')->select('message')->where('sms_tid','=',$id)->get();
+           // file_put_contents(storage_path().'smstext.txt',$templateData);
+           return $templateData;
+        }
     }
 
     /**
@@ -98,7 +120,7 @@ class SMSApiCaller extends Controller
      */
     public function store(Request $request)
     {
-        //
+      
     }
 
     /**

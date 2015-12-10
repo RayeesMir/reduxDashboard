@@ -17,7 +17,7 @@ class UserListController extends Controller
     {
         $client=null;
          $selectedMails=null;
-        $this->client = new Client(['base_uri' => 'http://192.168.1.101:8888/api/','timeout'  => 5.0,]);
+        $this->client = new Client(['base_uri' => 'http://192.168.1.6:8888/api/','timeout'  => 5.0,]);
        
     }
     /**m

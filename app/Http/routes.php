@@ -36,6 +36,8 @@ Route::post('emailStatus','MandrillCaller@index');
 
 Route::post('messagestatus','SMSApiCaller@index'); 
 
+Route::get('createSmstemplate','SMSApiCaller@storeSmsTemplate');  
+
 
 
 	 //file_put_contents(storage_path().'/text.txt', Input::get('mails'));

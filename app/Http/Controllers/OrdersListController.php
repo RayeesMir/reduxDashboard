@@ -15,7 +15,7 @@ class OrdersListController extends Controller
 
      public function __construct()
     {
-        $this->client = new Client(['base_uri' => 'http://192.168.1.101:8888/api/','timeout'  => 2.0,]);
+        $this->client = new Client(['base_uri' => 'http://192.168.1.6:8888/api/','timeout'  => 2.0,]);
     }
     /**
      * Display a listing of the resource.
