@@ -124,10 +124,42 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="close=></button> -->
-                                <h3 class="modal-title">Create SMS Template </h3>
+                                <h3 class="modal-title" style="text-align: center;">Create SMS Template </h3>
                             </div>
                             <div class="modal-body">
-                                <textarea class="form-control" id="smsTemplateText" >
+                            <div class="col-lg-3 col-xs-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <button type="button" class="btn btn-default" id="first-name-modal">First Name
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-xs-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <button type="button" class="btn btn-default" id="last-name-modal">Last Name</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-xs-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <button type="button" class="btn btn-default" id="email-id-modal">Email ID</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-xs-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <button type="button" class="btn btn-default" id="mobile-modal">Mobile Number</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                                <textarea class="form-control" rows="5" id="smsTemplateText"></textarea>
+                                <label class="pull-right" id="character-count-modal">Charcters:000</label>
                                     
                                 </textarea>
 
@@ -161,7 +193,7 @@
 @stop
 @section('other_scripts')
 <script type="text/javascript">
-     
+    var toggle = 0; 
     var users = decodeURIComponent('{{$mobile}}')
     var text = $('#sms');
     $('#test').html(users);
@@ -171,9 +203,13 @@
         $('<form action=messagestatus method=POST><input type=hidden name=_token value={{ csrf_token() }}><input type=hidden name=messages value=' + encodeURIComponent(users) + '><input name=sms value=' + encodeURIComponent($("#sms").val()) + '></form>').submit();
 
     });
+
     $("#saveSmsTemplate").click(function(){
 
        var smsTemplateText=$.trim($("#smsTemplateText").val());
+       if(smsTemplateText.length == 0 ){
+
+       }
    
        $.ajax({
                 url: "createSmstemplate",
@@ -197,8 +233,12 @@
         // swal({   title: "Error!",   text: smsTemplateText=$.trim($("#smsTemplateText").val()),   type: "error",   confirmButtonText: "Cool" });
     });
 
-    $('#first-name').click(function () {
+   $('#createTemplate').click(function(){
+     toggle = 1;
+   });
 
+    $('#first-name').click(function () {
+     
         text.val(text.val() + ' {% First Name %}');
         var newCharCnt = text.val().length;
         $('#character-count').html('Charcters:' + newCharCnt);
@@ -246,6 +286,40 @@
     $("#sms").on("input", function () {
         $('#character-count').html('Charcters:' + text.val().length);
     });
+
+    $("#smsTemplateText").on("input", function () {
+        $('#character-count-modal').html('Charcters:' + $('#smsTemplateText').val().length);
+    });
+
+    $('#first-name-modal').click(function () {
+     
+        $('#smsTemplateText').val($('#smsTemplateText').val() + ' {% First Name %}');
+        var newCharCnt = $('#smsTemplateText').val().length;
+        $('#character-count-modal').html('Charcters:' + newCharCnt);
+
+    });
+
+    $('#last-name-modal').click(function () {
+        $('#smsTemplateText').val($('#smsTemplateText').val() + ' {% Last Name %}');
+        var newCharCnt = $('#smsTemplateText').val().length;
+        $('#character-count-modal').html('Charcters:' + newCharCnt);
+
+    });
+
+    $('#email-id-modal').click(function () {
+        $('#smsTemplateText').val($('#smsTemplateText').val() + ' {% Email ID %}');
+        var newCharCnt = $('#smsTemplateText').val().length;
+        $('#character-count-modal').html('Charcters:' + newCharCnt);
+
+    });
+
+    $('#mobile-modal').click(function () {
+        $('#smsTemplateText').val($('#smsTemplateText').val() + ' {% Mobile Number %}');
+        var newCharCnt = $('#smsTemplateText').val().length;
+        $('#character-count-modal').html('Charcters:' + newCharCnt);
+
+    });
+    
 
     // function setSelectionRange(input, selectionStart, selectionEnd) {
     //   if (input.setSelectionRange) {
