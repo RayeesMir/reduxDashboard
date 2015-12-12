@@ -166,7 +166,7 @@
                             </div>
                             <div class="modal-footer">
                               
-                                <button type="button" class="btn btn-danger" data-dismiss="modal"> Close </button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" id="closeModal"> Close </button>
                                 <button type="button" class="btn btn-primary" id="saveSmsTemplate"> Save Template </button>
                             </div>
                         </div>
@@ -232,37 +232,85 @@
       
         // swal({   title: "Error!",   text: smsTemplateText=$.trim($("#smsTemplateText").val()),   type: "error",   confirmButtonText: "Cool" });
     });
-
+    
    $('#createTemplate').click(function(){
      toggle = 1;
-   });
-
-    $('#first-name').click(function () {
+      
+   });  
+   $("#closeModal").click(function(){
+     toggle = 0;
      
-        text.val(text.val() + ' {% First Name %}');
-        var newCharCnt = text.val().length;
-        $('#character-count').html('Charcters:' + newCharCnt);
+   })
+
+    $('#first-name,#first-name-modal ').click(function () {
+        
+        var newCharCnt
+        if (toggle)
+           {
+            $('#smsTemplateText').val($('#smsTemplateText').val() + ' {% First Name %}');
+            newCharCnt=$('#smsTemplateText').val().length;
+            $('#character-count-modal').html('Charcters:' + newCharCnt);
+           } 
+        else
+          {
+            text.val(text.val() + ' {% First Name %}');
+            newCharCnt = text.val().length;
+            $('#character-count').html('Charcters:' + newCharCnt);
+           
+          }  
+    });
+
+    $('#last-name,#last-name-modal').click(function () {
+        var newCharCnt;
+        if (toggle) 
+        {
+            $('#smsTemplateText').val($('#smsTemplateText').val() + ' {% Last Name %}');
+            newCharCnt=$('#smsTemplateText').val().length;
+            $('#character-count-modal').html('Charcters:' + newCharCnt);
+        }
+        else
+        {
+            text.val(text.val() + ' {% Last Name %}');
+            newCharCnt=text.val().length;
+            $('#character-count').html('Charcters:' + newCharCnt);
+        }      
 
     });
 
-    $('#last-name').click(function () {
-        text.val(text.val() + ' {% Last Name %}');
-        var newCharCnt = text.val().length;
-        $('#character-count').html('Charcters:' + newCharCnt);
+    $('#email-id,#email-id-modal').click(function () {
+
+        var newCharCnt
+        if (toggle)
+           {
+            $('#smsTemplateText').val($('#smsTemplateText').val() + ' {% Email ID %}');
+            newCharCnt=$('#smsTemplateText').val().length;
+            $('#character-count-modal').html('Charcters:' + newCharCnt);
+           } 
+        else
+          {
+            text.val(text.val() + ' {% Email ID %}');
+            newCharCnt = text.val().length;
+            $('#character-count').html('Charcters:' + newCharCnt);
+           
+          }
 
     });
+    $('#mobile,#mobile-modal').click(function () {
 
-    $('#email-id').click(function () {
-        text.val(text.val() + ' {% Email ID %}');
-        var newCharCnt = text.val().length;
-        $('#character-count').html('Charcters:' + newCharCnt);
-
-    });
-
-    $('#mobile').click(function () {
-        text.val(text.val() + ' {% Mobile Number %}');
-        var newCharCnt = text.val().length;
-        $('#character-count').html('Charcters:' + newCharCnt);
+        var newCharCnt
+        if (toggle)
+           {
+            $('#smsTemplateText').val($('#smsTemplateText').val() + ' {% Mobile Number %}');
+            newCharCnt=$('#smsTemplateText').val().length;
+            $('#character-count-modal').html('Charcters:' + newCharCnt);
+           } 
+        else
+          {
+             text.val(text.val() + ' {% Mobile Number %}');
+            newCharCnt = text.val().length;
+            $('#character-count').html('Charcters:' + newCharCnt);
+           
+          }
 
     });
 
@@ -289,37 +337,7 @@
 
     $("#smsTemplateText").on("input", function () {
         $('#character-count-modal').html('Charcters:' + $('#smsTemplateText').val().length);
-    });
-
-    $('#first-name-modal').click(function () {
-     
-        $('#smsTemplateText').val($('#smsTemplateText').val() + ' {% First Name %}');
-        var newCharCnt = $('#smsTemplateText').val().length;
-        $('#character-count-modal').html('Charcters:' + newCharCnt);
-
-    });
-
-    $('#last-name-modal').click(function () {
-        $('#smsTemplateText').val($('#smsTemplateText').val() + ' {% Last Name %}');
-        var newCharCnt = $('#smsTemplateText').val().length;
-        $('#character-count-modal').html('Charcters:' + newCharCnt);
-
-    });
-
-    $('#email-id-modal').click(function () {
-        $('#smsTemplateText').val($('#smsTemplateText').val() + ' {% Email ID %}');
-        var newCharCnt = $('#smsTemplateText').val().length;
-        $('#character-count-modal').html('Charcters:' + newCharCnt);
-
-    });
-
-    $('#mobile-modal').click(function () {
-        $('#smsTemplateText').val($('#smsTemplateText').val() + ' {% Mobile Number %}');
-        var newCharCnt = $('#smsTemplateText').val().length;
-        $('#character-count-modal').html('Charcters:' + newCharCnt);
-
-    });
-    
+    });    
 
     // function setSelectionRange(input, selectionStart, selectionEnd) {
     //   if (input.setSelectionRange) {
