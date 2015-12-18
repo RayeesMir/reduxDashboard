@@ -78,7 +78,7 @@ class SMSApiCaller extends Controller
                 [   
                     'userid'=>Session::get('userid'),
                     'message'=>$smsText,
-                    'sms_tid'=>,                //Pending 
+                    'sms_tid'=>$tid,                //Pending 
                     'status'=>$deliveryResponse,
                     'bhash_sent_id'=>$sentSmsUrlResponse,
                     'created_at'=>Carbon::now(),
@@ -151,11 +151,12 @@ class SMSApiCaller extends Controller
            $id= DB::table('smstemplate')->insertGetId(
                 [   
                     'message'=>$request->input('smstemplate'),
+                    'title'=>$request->input('title'),
                     'created_at'=>Carbon::now(),
                     'updated_at'=>Carbon::now()
                 ]
             );
-           $templateData=DB::table('smstemplate')->select('message')->where('sms_tid','=',$id)->get();
+           $templateData=DB::table('smstemplate')->select('message','sms_tid')->where('sms_tid','=',$id)->get();
            // file_put_contents(storage_path().'smstext.txt',$templateData);
            return $templateData;
         }

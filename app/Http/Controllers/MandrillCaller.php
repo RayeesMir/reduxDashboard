@@ -15,7 +15,7 @@ class MandrillCaller extends Controller
     public function __construct()
     {
         $client=null;
-        $this->client = new Client(['base_uri' => 'http://192.168.1.10:8888/DashBoard/api/','timeout'  => 5.0,]);
+        $this->client = new Client(['base_uri' => 'http://192.168.0.169:8888/DashBoard/api/','timeout'  => 5.0,]);
        
     }
     /**

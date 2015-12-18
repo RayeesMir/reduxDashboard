@@ -38,7 +38,7 @@ Route::post('messagestatus','SMSApiCaller@index');
 
 Route::get('getSentSmsResponse','SMSApiCaller@smsresponse');
 
-Route::get('createSmstemplate','SMSApiCaller@storeSmsTemplate');  
+Route::post('createSmstemplate','SMSApiCaller@storeSmsTemplate');  
 
 
 

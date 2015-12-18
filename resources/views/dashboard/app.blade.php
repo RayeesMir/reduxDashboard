@@ -46,7 +46,9 @@
 <script type="text/javascript" src="{!! URL::asset('js/bootstrap.js') !!}"></script> 
 <script type="text/javascript" src="{!! URL::asset('js/bootstrap-table.js') !!}"></script> 
 <script type="text/javascript" src="{!! URL::asset('js/main.js') !!}"></script>   
-  
+<script type="text/javascript">
+  $.ajaxSetup({ headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' } });
+</script>  
   
   @yield('other_scripts')
 </body>

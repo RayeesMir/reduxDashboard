@@ -954,8 +954,13 @@ h1.page-header {
  	display: block;
  }
 
- .templates .panel-body {
-	overflow-y: scroll;
+ .templates  {
+	overflow-y: auto;
+	height : 300px;
+}
+
+.template-builder {
+	padding: 30px;
 }
 
 
